@@ -5,9 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,300;0,400;0,500;0,900;1,500&display=swap" rel="stylesheet">
 </head>
 <body>
-    <canvas id="canvas"></canvas>
+    <div class="info">
+        <p>Bouncing Ball Animation</p>
+    </div>
+    <div class="contenedor">
+        <canvas id="canvas"></canvas>
+    </div>
+
+    <div class="controls">
+        <button id="startButton">Start</button>
+        <button id="pauseButton">Pause</button>
+        <button id="resetButton">Reset</button>
+        <label for="radiusRange">Ball Radius:</label>
+        <input type="range" id="radiusRange" min="10" max="50" step="1" value="20">
+        <label for="gravityRange">Gravity:</label>
+        <input type="range" id="gravityRange" min="0" max="2" step="0.1" value="0.5">
+        <label for="frictionRange">Friction:</label>
+        <input type="range" id="frictionRange" min="0.9" max="1" step="0.01" value="0.99">
+        <label for="velocityRange">Initial Velocity:</label>
+        <input type="range" id="velocityRange" min="5" max="20" step="1" value="10">
+    </div>
 
     <script src="javascript.js"></script>
 </body>
