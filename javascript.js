@@ -11,10 +11,127 @@ const startY = 10;
 let animationId;
 let isPaused = false;
 let isRunning = false;
-let gravity = 0.5;
+let gravity = 9.8;
 let friction = 0.99;
 let initialVelocity = 10;
 let radius = 20;
+
+const guideSteps = [
+    "Bienvenido a la animación de pelota que rebota. Haz clic en 'Siguiente' para continuar.",
+    "El botón 'Comenzar' inicia la animación de las pelotas.",
+    "El botón 'Pausa' detiene temporalmente la animación.",
+    "El botón 'Reiniciar' reinicia la animación con la configuración actual.",
+    "El control deslizante 'Tamaño de la Bola' ajusta el radio de las pelotas.",
+    "El control deslizante 'Gravedad' ajusta la fuerza de gravedad que actúa sobre las pelotas.",
+    "El control deslizante 'Fricción' ajusta la cantidad de fricción entre las pelotas y las paredes.",
+    "El control deslizante 'Velocidad inicial' ajusta la velocidad inicial de las pelotas.",
+    "¡Eso es todo! Ahora puedes jugar con la animación y ajustar los controles a tu gusto."
+];
+let currentStep = 0;
+
+function disableControls() {
+    const startButton = document.getElementById('startButton');
+    const pauseButton = document.getElementById('pauseButton');
+    const resetButton = document.getElementById('resetButton');
+    const radiusRange = document.getElementById('radiusRange');
+    const gravityRange = document.getElementById('gravityRange');
+    const frictionRange = document.getElementById('frictionRange');
+    const velocityRange = document.getElementById('velocityRange');
+
+    startButton.disabled = true;
+    pauseButton.disabled = true;
+    resetButton.disabled = true;
+    radiusRange.disabled = true;
+    gravityRange.disabled = true;
+    frictionRange.disabled = true;
+    velocityRange.disabled = true;
+}
+
+function enableControls() {
+    const startButton = document.getElementById('startButton');
+    const pauseButton = document.getElementById('pauseButton');
+    const resetButton = document.getElementById('resetButton');
+    const radiusRange = document.getElementById('radiusRange');
+    const gravityRange = document.getElementById('gravityRange');
+    const frictionRange = document.getElementById('frictionRange');
+    const velocityRange = document.getElementById('velocityRange');
+
+    startButton.disabled = false;
+    pauseButton.disabled = false;
+    resetButton.disabled = false;
+    radiusRange.disabled = false;
+    gravityRange.disabled = false;
+    frictionRange.disabled = false;
+    velocityRange.disabled = false;
+}
+
+
+function updateOpacity(step) {
+    const startButton = document.getElementById('startButton');
+    const pauseButton = document.getElementById('pauseButton');
+    const resetButton = document.getElementById('resetButton');
+    const radiusLabel = document.getElementById('radiusRange').previousElementSibling;
+    const radiusRange = document.getElementById('radiusRange');
+    const radiusValue = document.getElementById('radiusValue');
+    const gravityLabel = document.getElementById('gravityRange').previousElementSibling;
+    const gravityRange = document.getElementById('gravityRange');
+    const gravityValue = document.getElementById('gravityValue');
+    const frictionLabel = document.getElementById('frictionRange').previousElementSibling;
+    const frictionRange = document.getElementById('frictionRange');
+    const frictionValue = document.getElementById('frictionValue');
+    const velocityLabel = document.getElementById('velocityRange').previousElementSibling;
+    const velocityRange = document.getElementById('velocityRange');
+    const velocityValue = document.getElementById('velocityValue');
+
+    startButton.classList.add('opaque');
+    pauseButton.classList.add('opaque');
+    resetButton.classList.add('opaque');
+    radiusLabel.classList.add('opaque');
+    radiusRange.classList.add('opaque');
+    radiusValue.classList.add('opaque');
+    gravityLabel.classList.add('opaque');
+    gravityRange.classList.add('opaque');
+    gravityValue.classList.add('opaque');
+    frictionLabel.classList.add('opaque');
+    frictionRange.classList.add('opaque');
+    frictionValue.classList.add('opaque');
+    velocityLabel.classList.add('opaque');
+    velocityRange.classList.add('opaque');
+    velocityValue.classList.add('opaque');
+
+    switch (step) {
+        case 1:
+            startButton.classList.remove('opaque');
+            break;
+        case 2:
+            pauseButton.classList.remove('opaque');
+            break;
+        case 3:
+            resetButton.classList.remove('opaque');
+            break;
+        case 4:
+            radiusLabel.classList.remove('opaque');
+            radiusRange.classList.remove('opaque');
+            radiusValue.classList.remove('opaque');
+            break;
+        case 5:
+            gravityLabel.classList.remove('opaque');
+            gravityRange.classList.remove('opaque');
+            gravityValue.classList.remove('opaque');
+            break;
+        case 6:
+            frictionLabel.classList.remove('opaque');
+            frictionRange.classList.remove('opaque');
+            frictionValue.classList.remove('opaque');
+            break;
+        case 7:
+            velocityLabel.classList.remove('opaque');
+            velocityRange.classList.remove('opaque');
+            velocityValue.classList.remove('opaque');
+            break;
+        
+    }
+}
 
 function getRandomColor() {
     const letters = '0123456789ABCDEF';
@@ -118,36 +235,25 @@ document.getElementById('resetButton').addEventListener('click', function () {
 
 document.getElementById('radiusRange').addEventListener('input', function (e) {
     radius = parseInt(e.target.value);
+    document.getElementById('radiusValue').textContent = radius;
     balls.forEach(ball => {
         ball.radius = radius;
     });
 });
 
-canvas.addEventListener('click', (e) => {
-    const rect = canvas.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-
-    balls.forEach(ball => {
-        const dx = x - ball.x;
-        const dy = y - ball.y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
-
-        if (distance <= ball.radius) {
-            ball.color = getRandomColor();
-        }
-    });
-});
 
 document.getElementById('gravityRange').addEventListener('input', function (e) {
     gravity = parseFloat(e.target.value);
+    document.getElementById('gravityValue').textContent = gravity;
     balls.forEach(ball => {
         ball.gravity = gravity;
     });
 });
 
+
 document.getElementById('frictionRange').addEventListener('input', function (e) {
     friction = parseFloat(e.target.value);
+    document.getElementById('frictionValue').textContent = friction;
     balls.forEach(ball => {
         ball.friction = friction;
     });
@@ -155,8 +261,43 @@ document.getElementById('frictionRange').addEventListener('input', function (e) 
 
 document.getElementById('velocityRange').addEventListener('input', function (e) {
     initialVelocity = parseInt(e.target.value);
+    document.getElementById('velocityValue').textContent = initialVelocity;
     balls.forEach(ball => {
         ball.velocityX = initialVelocity;
         ball.velocityY = initialVelocity;
     });
 });
+
+
+function showGuide() {
+            const guideText = document.getElementById('guideText');
+            const nextButton = document.getElementById('nextStep');
+            const guide = document.getElementById('guide');
+
+            disableControls();
+            updateOpacity(currentStep);
+
+            guideText.textContent = guideSteps[currentStep];
+
+            if (currentStep === guideSteps.length - 1) {
+                nextButton.textContent = 'Finalizar';
+            }
+
+            guide.style.display = 'block';
+
+            nextButton.addEventListener('click', nextGuideStep);
+        }
+
+        function nextGuideStep() {
+            const guide = document.getElementById('guide');
+
+            if (currentStep === guideSteps.length - 1) {
+                guide.style.display = 'none';
+                enableControls();
+            } else {
+                currentStep++;
+                showGuide();
+            }
+        }
+
+        window.addEventListener('load', showGuide);
