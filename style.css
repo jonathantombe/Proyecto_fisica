@@ -64,6 +64,29 @@ canvas {
     text-align: center;
 }
  
+.container {
+    display: flex;
+    justify-content: space-around;
+    width: 40%;
+}
+
+.column {
+    padding: 10px;
+    justify-content: center;
+}
+
+.column2 {
+     display: flex;
+    align-items: center; 
+    justify-content: space-between;
+}
+
+h1, h2, h3 {
+    font-family: 'Roboto', sans-serif;
+    color: #eeeaea; 
+   font-size: 14px;    
+   margin-right: 10px; 
+}
 
 @media(min-width: 380px){
     
