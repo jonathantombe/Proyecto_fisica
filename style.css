@@ -1,0 +1,104 @@
+body,
+html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+    background-color: black;
+}
+.contenedor{
+    width: 100%;
+    height: auto;
+    background: url('src/img/Free\ Photo\ _\ Abstract\ luxury\ blur\ dark\ grey\ and\ black\ gradient\,\ used\ as\ background\ studio\ wall\ for\ display\ your\ products_.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    image-rendering: crisp-edges;
+    box-shadow: 0 0px 5px hsl(220, 16%, 96%)
+    ;
+}
+canvas {
+    display: block;
+    margin: auto;
+    background-color: transparent;
+}
+.info {
+    text-align: center;
+    font-family: Arial, sans-serif;
+    font-size: 3.5rem;
+    text-shadow: 0 0 10px;
+    color: white;
+}
+
+.controls {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 20px;
+    color: white;
+    text-shadow: 0 0 3px;
+}
+
+.controls button {
+    margin: 0 10px;
+    padding: 10px 15px;
+    font-size: 20px;
+    font-family: 'Times New Roman', Times, serif;
+    border-radius: 8px;
+    text-shadow: 0 0 3px;
+}
+
+.controls input[type="range" ] {
+    margin: 5px;
+}
+
+.guide {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    z-index: 100;
+    text-align: center;
+}
+ 
+
+.container {
+    display: flex;
+    justify-content: space-around;
+    width: 40%;
+}
+
+.column {
+    padding: 10px;
+    justify-content: center;
+}
+
+.column2 {
+     display: flex;
+    align-items: center; 
+    justify-content: space-between;
+}
+
+h1, h2, h3 {
+    font-family: 'Roboto', sans-serif;
+    color: #eeeaea; 
+   font-size: 14px;    
+   margin-right: 10px; 
+}
+
+@media(min-width: 380px){
+    
+}
+@media(min-width: 580px){
+    
+}
+@media(min-width: 720px) {
+
+}
+@media(min-width: 920px) {
+
+}
+@media(min-width: 1200px) {}
